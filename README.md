@@ -36,7 +36,7 @@ Discod.js+ Fork from [discord.js](https://github.com/discordjs/discord.js), allo
 |ClassOrEvent | PropOrMethod |
 |:---:|:---|
 | ClientEvents | `relationshipAdd(Relationship)`, `relationshipRemove(Relationship)`, `relationshipUpdate(Relationship, Relationship)` |
-| Relationship `extends` Base | user: `User`, id: `UserId`, type: `0 | 1 | 2 | 3 | 4` |
+| Relationship `extends` Base | user: `User`, id: `UserId`, type: `0 \| 1 \| 2 \| 3 \| 4` |
 | RelationshipsManager `extends` BaseManager | fetchAll(): `Promise<Collection<Snowflake, Relationship>>`, presences: `PresenceManager`|
 | Client | relationships: `RelationshipsManager` |
 | ClientUser | relationships: `Client#relationships`, friends: `Collection<Snowflake, User>`, blockList: `Collection<Snowflake, User>` |
