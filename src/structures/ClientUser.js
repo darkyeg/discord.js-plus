@@ -2,9 +2,6 @@
 
 const DataResolver = require('../util/DataResolver');
 const Structures = require('../util/Structures');
-const { default: Collection } = require('@discordjs/collection');
-const SnowflakeUtil = require('../util/Snowflake');
-const Relationship = require('./Relationship');
 
 /**
  * Represents the logged in client's Discord user.
@@ -64,7 +61,7 @@ class ClientUser extends Structures.get('User') {
    * @readonly
    */
   get friends() {
-    return this.client.users.cache.filter( r => r.relationship.type === 1);
+    return this.client.users.cache.filter(r => r.relationship.type === 1);
   }
 
   /**
@@ -73,7 +70,7 @@ class ClientUser extends Structures.get('User') {
    * @readonly
    */
   get blockList() {
-    return this.client.users.cache.filter( r => r.relationship.type === 1);
+    return this.client.users.cache.filter(r => r.relationship.type === 1);
   }
   edit(data) {
     return this.client.api

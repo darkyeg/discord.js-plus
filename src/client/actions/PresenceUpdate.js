@@ -17,13 +17,13 @@ class PresenceUpdateAction extends Action {
     if (!data.guild_id) {
       data.id = data.user.id;
       let oldRelationship = this.client.relationships.presences.cache.get(user.id);
-      if(!oldRelationship) return;
+      if (!oldRelationship) return;
       if (oldRelationship) oldRelationship = oldRelationship._clone();
-      this.client.relationships.presences.add(data)
+      this.client.relationships.presences.add(data);
 
       this.client.emit(Events.PRESENCE_UPDATE, oldRelationship, user.presence);
       return;
-    } 
+    }
     if (!guild) return;
     let oldPresence = guild.presences.cache.get(user.id);
     if (oldPresence) oldPresence = oldPresence._clone();

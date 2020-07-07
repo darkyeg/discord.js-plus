@@ -18,7 +18,7 @@ class Relationship extends Base {
      * @type {User}
      */
     this.user = client.users.add(data.user);
-      
+
     /**
      * The ID of the user
      * @type {Snowflake}
@@ -26,18 +26,16 @@ class Relationship extends Base {
     this.id = this.user.id;
 
     /**
-     * type of relationship
+     * Type of relationship
      * @type {Number}
      */
     this.type = null;
 
-    this._patch(data)
+    this._patch(data);
   }
   _patch(data) {
-      if(typeof data.type !== 'undefined') this.type = data.type;
+    if (typeof data.type !== 'undefined') this.type = data.type;
   }
-
 }
-
 
 module.exports = Relationship;

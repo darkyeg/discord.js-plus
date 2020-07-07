@@ -3,11 +3,11 @@
 
 <p>
 
-<a  href="https://www.npmjs.com/package/discord.js"><img  src="https://img.shields.io/npm/v/discord.js-plus.svg?maxAge=3600"  alt="NPM version"  /></a>
-<a  href="https://www.npmjs.com/package/discord.js"><img  src="https://img.shields.io/npm/dt/discord.js-plus.svg?maxAge=3600"  alt="NPM downloads"  /></a>
+<a  href="https://www.npmjs.com/package/discord.js-plus/"><img  src="https://img.shields.io/npm/v/discord.js-plus.svg?maxAge=3600"  alt="NPM version"  /></a>
+<a  href="https://www.npmjs.com/package/discord.js-plus/"><img  src="https://img.shields.io/npm/dt/discord.js-plus.svg?maxAge=3600"  alt="NPM downloads"  /></a>
 </p>
 <p>
-<a  href="https://nodei.co/npm/discord.js/"><img  src="https://nodei.co/npm/discord.js-plus.png?downloads=true&stars=true"  alt="npm installnfo"  /></a>
+<a  href="https://nodei.co/npm/discord.js-plus/"><img  src="https://nodei.co/npm/discord.js-plus.png?downloads=true&stars=true"  alt="npm installnfo"  /></a>
 </p>
 </div>
 
@@ -30,13 +30,10 @@ Discod.js+ Fork from [discord.js](https://github.com/discordjs/discord.js), allo
   
 
 # Changes
-
-  
-
 |ClassOrEvent | PropOrMethod |
 |:---:|:---|
 | ClientEvents | `relationshipAdd(Relationship)`, `relationshipRemove(Relationship)`, `relationshipUpdate(Relationship, Relationship)` |
-| Relationship `extends` Base | user: `User`, id: `UserId`, type: `0 | 1 | 2 | 3 | 4` |
+| Relationship `extends` Base | user: `User`, id: `UserId`, type: `0 \| 1 \| 2 \| 3 \| 4` |
 | RelationshipsManager `extends` BaseManager | fetchAll(): `Promise<Collection<Snowflake, Relationship>>`, presences: `PresenceManager`|
 | Client | relationships: `RelationshipsManager` |
 | ClientUser | relationships: `Client#relationships`, friends: `Collection<Snowflake, User>`, blockList: `Collection<Snowflake, User>` |
@@ -55,16 +52,12 @@ const  client  =  new  Client();
 client.on('ready',  ()  =>  {
 
 	const  relationshipsSize  =  client.relationships.cache.size;
-
 	const  blockedSize  =  client.user.blockList.size;
-
 	const  friendsSize  =  client.user.friends.size;
-
 	console.log(`You have ${relationshipsSize} relationships.`)
-
 	console.log(`${blockedSize} blocked.`)
-
 	console.log(`${friendsSize} friends.`)
+
 
 })
 
@@ -72,17 +65,17 @@ client.on('ready',  ()  =>  {
 
 ```
 
-  
-
 ```js
-const  {  Client  }  =  require('discord.js-plus')
-const  client  =  new  Client();
 
-client.on('ready',  async()  =>  {
+const { Client } = require('discord.js-plus')
+const client = new Client();
 
-	client.users.cache.get('ID').addFriend().then( _  =>  {
+client.on('ready', async() => {
+
+	client.users.cache.get('ID').addFriend().then( () => {
 		console.log('A friend request has been sent')
 	}).catch(console.error)
 
 })
+
 ```

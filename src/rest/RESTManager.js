@@ -26,12 +26,12 @@ class RESTManager {
   }
 
   getAuth() {
-		if (this.client.token && this.client.user && this.client.user.bot) {
-		  return `Bot ${this.client.token}`;
-		} else if (this.client.token) {
-		  return this.client.token;
-		}
-		throw new Error('TOKEN_MISSING');
+    if (this.client.token && this.client.user && this.client.user.bot) {
+      return `Bot ${this.client.token}`;
+    } else if (this.client.token) {
+      return this.client.token;
+    }
+    throw new Error('TOKEN_MISSING');
   }
 
   get cdn() {

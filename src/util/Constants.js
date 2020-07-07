@@ -1,6 +1,4 @@
 'use strict';
-
-const Package = (exports.Package = require('../../package.json'));
 const { Error, RangeError } = require('../errors');
 const browser = (exports.browser = typeof window !== 'undefined');
 
@@ -86,9 +84,9 @@ exports.DefaultOptions = {
   },
 };
 
-exports.UserAgent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) discord/0.0.306 Chrome/78.0.3904.130 Electron/7.1.11 Safari/537.36'
-  ? null
-  : `DiscordBot (${Package.homepage.split('#')[0]}, ${Package.version}) Node.js/${process.version}`;
+exports.UserAgent =
+  'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)' +
+  'discord/0.0.306 Chrome/78.0.3904.130 Electron/7.1.11 Safari/537.36';
 
 exports.WSCodes = {
   1000: 'WS_CLOSE_REQUESTED',

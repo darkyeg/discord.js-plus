@@ -2,11 +2,11 @@
 
 const Base = require('./Base');
 const { Presence } = require('./Presence');
+const Relationship = require('./Relationship');
 const TextBasedChannel = require('./interfaces/TextBasedChannel');
 const { Error } = require('../errors');
 const Snowflake = require('../util/Snowflake');
 const UserFlags = require('../util/UserFlags');
-const Relationship = require('./Relationship');
 
 /**
  * Represents a user on Discord.
@@ -133,31 +133,31 @@ class User extends Base {
   }
 
   /**
-   * relationship with this user
+   * Relationship with this user
    * @type {Relationship}
    * @readonly
    */
   get relationship() {
-    if(this.client.relationships.cache.has(this.id)) return this.client.relationships.cache.get(this.id);
-    return new Relationship(this.client, { user:this, type: 0})
+    if (this.client.relationships.cache.has(this.id)) return this.client.relationships.cache.get(this.id);
+    return new Relationship(this.client, { user: this, type: 0 });
   }
 
-    /**
+  /**
    * If this user is blocked or not
-   * @type {Boolean}
+   * @type {boolean}
    * @readonly
    */
   get blocked() {
-    return this.relationship.type === 2
+    return this.relationship.type === 2;
   }
 
-   /**
+  /**
    * If this user is friend or not
-   * @type {Boolean}
+   * @type {boolean}
    * @readonly
    */
   get friend() {
-    return this.relationship.type === 1
+    return this.relationship.type === 1;
   }
   /**
    * The presence of this user
@@ -168,7 +168,11 @@ class User extends Base {
     for (const guild of this.client.guilds.cache.values()) {
       if (guild.presences.cache.has(this.id)) return guild.presences.cache.get(this.id);
     }
-    if(this.client.relationships.presences.cache.has(this.id)) return this.client.relationships.presences.cache.get(this.id);
+
+    if (this.client.relationships.presences.cache.has(this.id)) {
+      return this.client.relationships.presences.cache.get(this.id);
+    }
+
     return new Presence(this.client, { user: { id: this.id } });
   }
 
@@ -235,7 +239,10 @@ class User extends Base {
    * @returns {Promise<User>}
    */
   block() {
-    return this.client.api.users('@me').relationships[this.id].put({ data: { type: 2 } }).then(_ => _)
+    return this.client.api
+      .users('@me')
+      .relationships[this.id].put({ data: { type: 2 } })
+      .then(_ => _);
   }
 
   /**
@@ -243,7 +250,10 @@ class User extends Base {
    * @returns {Promise<User>}
    */
   unblock() {
-    return this.client.api.users('@me').relationships[this.id].delete().then(_ => _)
+    return this.client.api
+      .users('@me')
+      .relationships[this.id].delete()
+      .then(_ => _);
   }
 
   /**
@@ -251,15 +261,21 @@ class User extends Base {
    * @returns {Promise<User>}
    */
   removeFriend() {
-    return this.client.api.users('@me').relationships[this.id].delete().then(_ => _)
+    return this.client.api
+      .users('@me')
+      .relationships[this.id].delete()
+      .then(_ => _);
   }
 
   /**
-   * send a friend request for this user
+   * Send a friend request for this user
    * @returns {Promise<User>}
    */
   addFreind() {
-    return this.client.api.users('@me').relationships[this.id].put({ data: { type: 1 } }).then(_ => _)
+    return this.client.api
+      .users('@me')
+      .relationships[this.id].put({ data: { type: 1 } })
+      .then(_ => _);
   }
   /**
    * Gets the amount of time the user has been typing in a channel for (in milliseconds), or -1 if they're not typing.

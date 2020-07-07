@@ -8,8 +8,8 @@ const { Error, TypeError, RangeError } = require('../errors');
 const ChannelManager = require('../managers/ChannelManager');
 const GuildEmojiManager = require('../managers/GuildEmojiManager');
 const GuildManager = require('../managers/GuildManager');
-const UserManager = require('../managers/UserManager');
 const RelationshipManager = require('../managers/RelationshipManager');
+const UserManager = require('../managers/UserManager');
 const ShardClientUtil = require('../sharding/ShardClientUtil');
 const ClientApplication = require('../structures/ClientApplication');
 const GuildPreview = require('../structures/GuildPreview');
@@ -109,7 +109,7 @@ class Client extends BaseClient {
      */
     this.users = new UserManager(this);
 
-	this.relationships = new RelationshipManager(this)
+    this.relationships = new RelationshipManager(this);
     /**
      * All of the guilds the client is currently handling, mapped by their IDs -
      * as long as sharding isn't being used, this will be *every* guild the bot is a member of
