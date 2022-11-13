@@ -1,0 +1,5 @@
+addReviewers: true
+reviewers:
+  - DarkyEG
+numberOfReviewers: 0
+runOnDraft: true

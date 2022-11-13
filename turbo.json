@@ -1,0 +1,37 @@
+{
+	"$schema": "https://turborepo.org/schema.json",
+	"pipeline": {
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**"]
+		},
+		"@discordjs/guide#build:prod": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**"]
+		},
+		"@discordjs/website#build:prod": {
+			"dependsOn": ["^build"],
+			"outputs": [".next/**"]
+		},
+		"test": {
+			"dependsOn": ["^build"],
+			"outputs": []
+		},
+		"lint": {
+			"dependsOn": ["^build"],
+			"outputs": []
+		},
+		"format": {
+			"dependsOn": ["^build"],
+			"outputs": []
+		},
+		"docs": {
+			"dependsOn": ["^build"],
+			"outputs": ["docs/docs.json", "docs/docs.api.json"]
+		},
+		"changelog": {
+			"dependsOn": ["^build"],
+			"outputs": ["CHANGELOG.md"]
+		}
+	}
+}

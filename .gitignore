@@ -1,24 +1,34 @@
 # Packages
 node_modules/
-yarn.lock
-package-lock.json
 
 # Log files
 logs/
 *.log
+npm-debug.log*
 
-# Authentication
-test/auth.json
-test/auth.js
-docs/deploy/deploy_key
-docs/deploy/deploy_key.pub
-deploy/deploy_key
-deploy/deploy_key.pub
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Env
+.env
+
+# Dist
+dist/
 
 # Miscellaneous
 .tmp/
-.vscode/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 .idea/
-docs/docs.json
-typings/index.js
-webpack/
+.DS_Store
+.turbo
+tsconfig.tsbuildinfo
+coverage/
+
+
+# Cache
+.prettiercache
+.eslintcache

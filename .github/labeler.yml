@@ -1,0 +1,6 @@
+apps:website:
+  - apps/website/*
+  - apps/website/**/*
+packages:discord.js:
+  - packages/discord.js/*
+  - packages/discord.js/**/*

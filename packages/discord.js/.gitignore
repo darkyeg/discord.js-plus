@@ -1,0 +1,27 @@
+# Packages
+node_modules/
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Env
+.env
+test/auth.json
+test/auth.js
+
+# Dist
+dist/
+docs/**/*
+!docs/index.json
+
+# Miscellaneous
+.tmp/
+coverage/
+tsconfig.tsbuildinfo
