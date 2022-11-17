@@ -1,6 +1,6 @@
 {
   "name": "discord.js-plus",
-  "version": "12.2.11",
+  "version": "12.2.12",
   "description": "Discord.js+ Fork from discord.js, allows you to use Selfbot with more features",
   "main": "./src/index",
   "types": "./typings/index.d.ts",

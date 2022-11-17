@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-const Base = require('./Base');
-const { Presence } = require('./Presence');
-const Relationship = require('./Relationship');
-const TextBasedChannel = require('./interfaces/TextBasedChannel');
-const { Error } = require('../errors');
-const Snowflake = require('../util/Snowflake');
-const UserFlags = require('../util/UserFlags');
+const Base = require("./Base");
+const { Presence } = require("./Presence");
+const Relationship = require("./Relationship");
+const TextBasedChannel = require("./interfaces/TextBasedChannel");
+const { Error } = require("../errors");
+const Snowflake = require("../util/Snowflake");
+const UserFlags = require("../util/UserFlags");
 
 /**
  * Represents a user on Discord.
@@ -57,16 +57,16 @@ class User extends Base {
      * @type {?string}
      * @name User#avatar
      */
-    if (typeof data.avatar !== 'undefined') this.avatar = data.avatar;
+    if (typeof data.avatar !== "undefined") this.avatar = data.avatar;
 
-    if (typeof data.bot !== 'undefined') this.bot = Boolean(data.bot);
+    if (typeof data.bot !== "undefined") this.bot = Boolean(data.bot);
 
     /**
      * Whether the user is an Official Discord System user (part of the urgent message system)
      * @type {?boolean}
      * @name User#system
      */
-    if (typeof data.system !== 'undefined') this.system = Boolean(data.system);
+    if (typeof data.system !== "undefined") this.system = Boolean(data.system);
 
     /**
      * The locale of the user's client (ISO 639-1)
@@ -80,7 +80,8 @@ class User extends Base {
      * @type {?UserFlags}
      * @name User#flags
      */
-    if (typeof data.public_flags !== 'undefined') this.flags = new UserFlags(data.public_flags);
+    if (typeof data.public_flags !== "undefined")
+      this.flags = new UserFlags(data.public_flags);
 
     /**
      * The ID of the last message sent by the user, if one was sent
@@ -101,7 +102,7 @@ class User extends Base {
    * @readonly
    */
   get partial() {
-    return typeof this.username !== 'string';
+    return typeof this.username !== "string";
   }
 
   /**
@@ -138,7 +139,8 @@ class User extends Base {
    * @readonly
    */
   get relationship() {
-    if (this.client.relationships.cache.has(this.id)) return this.client.relationships.cache.get(this.id);
+    if (this.client.relationships.cache.has(this.id))
+      return this.client.relationships.cache.get(this.id);
     return new Relationship(this.client, { user: this, type: 0 });
   }
 
@@ -166,7 +168,8 @@ class User extends Base {
    */
   get presence() {
     for (const guild of this.client.guilds.cache.values()) {
-      if (guild.presences.cache.has(this.id)) return guild.presences.cache.get(this.id);
+      if (guild.presences.cache.has(this.id))
+        return guild.presences.cache.get(this.id);
     }
 
     if (this.client.relationships.presences.cache.has(this.id)) {
@@ -183,7 +186,13 @@ class User extends Base {
    */
   avatarURL({ format, size, dynamic } = {}) {
     if (!this.avatar) return null;
-    return this.client.rest.cdn.Avatar(this.id, this.avatar, format, size, dynamic);
+    return this.client.rest.cdn.Avatar(
+      this.id,
+      this.avatar,
+      format,
+      size,
+      dynamic
+    );
   }
 
   /**
@@ -211,7 +220,9 @@ class User extends Base {
    * @readonly
    */
   get tag() {
-    return typeof this.username === 'string' ? `${this.username}#${this.discriminator}` : null;
+    return typeof this.username === "string"
+      ? `${this.username}#${this.discriminator}`
+      : null;
   }
 
   /**
@@ -231,7 +242,9 @@ class User extends Base {
    */
   typingSinceIn(channel) {
     channel = this.client.channels.resolve(channel);
-    return channel._typing.has(this.id) ? new Date(channel._typing.get(this.id).since) : null;
+    return channel._typing.has(this.id)
+      ? new Date(channel._typing.get(this.id).since)
+      : null;
   }
 
   /**
@@ -240,9 +253,9 @@ class User extends Base {
    */
   block() {
     return this.client.api
-      .users('@me')
+      .users("@me")
       .relationships[this.id].put({ data: { type: 2 } })
-      .then(_ => _);
+      .then((_) => _);
   }
 
   /**
@@ -251,9 +264,9 @@ class User extends Base {
    */
   unblock() {
     return this.client.api
-      .users('@me')
+      .users("@me")
       .relationships[this.id].delete()
-      .then(_ => _);
+      .then((_) => _);
   }
 
   /**
@@ -262,20 +275,20 @@ class User extends Base {
    */
   removeFriend() {
     return this.client.api
-      .users('@me')
+      .users("@me")
       .relationships[this.id].delete()
-      .then(_ => _);
+      .then((_) => _);
   }
 
   /**
    * Send a friend request for this user
    * @returns {Promise<User>}
    */
-  addFreind() {
+  addFriend() {
     return this.client.api
-      .users('@me')
+      .users("@me")
       .relationships[this.id].put({ data: { type: 1 } })
-      .then(_ => _);
+      .then((_) => _);
   }
   /**
    * Gets the amount of time the user has been typing in a channel for (in milliseconds), or -1 if they're not typing.
@@ -284,7 +297,9 @@ class User extends Base {
    */
   typingDurationIn(channel) {
     channel = this.client.channels.resolve(channel);
-    return channel._typing.has(this.id) ? channel._typing.get(this.id).elapsedTime : -1;
+    return channel._typing.has(this.id)
+      ? channel._typing.get(this.id).elapsedTime
+      : -1;
   }
 
   /**
@@ -293,7 +308,11 @@ class User extends Base {
    * @readonly
    */
   get dmChannel() {
-    return this.client.channels.cache.find(c => c.type === 'dm' && c.recipient.id === this.id) || null;
+    return (
+      this.client.channels.cache.find(
+        (c) => c.type === "dm" && c.recipient.id === this.id
+      ) || null
+    );
   }
 
   /**
@@ -303,11 +322,13 @@ class User extends Base {
   async createDM() {
     const { dmChannel } = this;
     if (dmChannel && !dmChannel.partial) return dmChannel;
-    const data = await this.client.api.users(this.client.user.id).channels.post({
-      data: {
-        recipient_id: this.id,
-      },
-    });
+    const data = await this.client.api
+      .users(this.client.user.id)
+      .channels.post({
+        data: {
+          recipient_id: this.id,
+        },
+      });
     return this.client.actions.ChannelCreate.handle(data).channel;
   }
 
@@ -317,7 +338,7 @@ class User extends Base {
    */
   async deleteDM() {
     const { dmChannel } = this;
-    if (!dmChannel) throw new Error('USER_NO_DMCHANNEL');
+    if (!dmChannel) throw new Error("USER_NO_DMCHANNEL");
     const data = await this.client.api.channels(dmChannel.id).delete();
     return this.client.actions.ChannelDelete.handle(data).channel;
   }
@@ -378,7 +399,7 @@ class User extends Base {
         lastMessage: false,
         lastMessageID: false,
       },
-      ...props,
+      ...props
     );
     json.avatarURL = this.avatarURL();
     json.displayAvatarURL = this.displayAvatarURL();
