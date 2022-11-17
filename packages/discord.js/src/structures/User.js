@@ -2,7 +2,9 @@
 
 const { userMention } = require('@discordjs/builders');
 const { DiscordSnowflake } = require('@sapphire/snowflake');
+const { Routes } = require('discord-api-types/v10');
 const Base = require('./Base');
+const Relationship = require('./Relationship');
 const TextBasedChannel = require('./interfaces/TextBasedChannel');
 const UserFlagsBitField = require('../util/UserFlagsBitField');
 
@@ -203,6 +205,78 @@ class User extends Base {
    */
   get dmChannel() {
     return this.client.users.dmChannel(this.id);
+  }
+
+  /**
+   * Relationship with this user
+   * @type {Relationship}
+   * @readonly
+   */
+  get relationship() {
+    return this.client.relationships.cache.get(this.id) ?? new Relationship(this.client, { user: this, type: 0 });
+  }
+
+  /**
+   * If this user is blocked or not
+   * @type {boolean}
+   * @readonly
+   */
+  get blocked() {
+    return this.relationship.type === 2;
+  }
+
+  /**
+   * If this user is friend or not
+   * @type {boolean}
+   * @readonly
+   */
+  get friend() {
+    return this.relationship.type === 1;
+  }
+
+  /**
+   * The presence of this user
+   * @type {?Presence}
+   * @readonly
+   */
+  get presence() {
+    for (const guild of this.client.guilds.cache.values()) {
+      if (guild.presences.cache.has(this.id)) return guild.presences.cache.get(this.id);
+    }
+
+    return this.client.relationships.presences.resolve(this.id);
+  }
+
+  /**
+   * Block this user
+   * @returns {Promise<User>}
+   */
+  block() {
+    return this.client.rest.put(`${Routes.user()}/relationships/${this.id}`, { body: { type: 2 } });
+  }
+
+  /**
+   * Unblock this user
+   * @returns {Promise<User>}
+   */
+  unblock() {
+    return this.client.rest.delete(`${Routes.user()}/relationships/${this.id}`);
+  }
+
+  /**
+   * Unfriend this user
+   * @returns {Promise<User>}
+   */
+  removeFriend() {
+    return this.client.rest.delete(`${Routes.user()}/relationships/${this.id}`);
+  }
+
+  /**
+   * Send a friend request for this user
+   * @returns {Promise<User>}
+   */
+  addFriend() {
+    return this.client.rest.put(`${Routes.user()}/relationships/${this.id}`, { body: { type: 1 } });
   }
 
   /**

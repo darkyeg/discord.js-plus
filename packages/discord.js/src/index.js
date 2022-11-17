@@ -77,6 +77,7 @@ exports.ThreadManager = require('./managers/ThreadManager');
 exports.ThreadMemberManager = require('./managers/ThreadMemberManager');
 exports.UserManager = require('./managers/UserManager');
 exports.VoiceStateManager = require('./managers/VoiceStateManager');
+exports.RelationshipManager = require('./managers/RelationshipManager');
 exports.WebSocketManager = require('./client/websocket/WebSocketManager');
 exports.WebSocketShard = require('./client/websocket/WebSocketShard');
 
@@ -179,6 +180,7 @@ exports.Widget = require('./structures/Widget');
 exports.WidgetMember = require('./structures/WidgetMember');
 exports.WelcomeChannel = require('./structures/WelcomeChannel');
 exports.WelcomeScreen = require('./structures/WelcomeScreen');
+exports.Relationship = require('./structures/Relationship');
 
 exports.WebSocket = require('./WebSocket');
 

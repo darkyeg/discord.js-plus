@@ -24,7 +24,7 @@ class BaseClient extends EventEmitter {
      */
     this.options = mergeDefault(Options.createDefault(), options);
 
-    if (!this.options.bot) this.options.rest.authPrefix = undefined;
+    if (!this.options.bot) this.options.rest.authPrefix = '';
 
     /**
      * The REST manager of the client

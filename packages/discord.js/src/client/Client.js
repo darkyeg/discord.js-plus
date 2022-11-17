@@ -12,6 +12,7 @@ const { DiscordjsError, DiscordjsTypeError, DiscordjsRangeError, ErrorCodes } = 
 const BaseGuildEmojiManager = require('../managers/BaseGuildEmojiManager');
 const ChannelManager = require('../managers/ChannelManager');
 const GuildManager = require('../managers/GuildManager');
+const RelationshipManager = require('../managers/RelationshipManager');
 const UserManager = require('../managers/UserManager');
 const ShardClientUtil = require('../sharding/ShardClientUtil');
 const ClientPresence = require('../structures/ClientPresence');
@@ -109,6 +110,12 @@ class Client extends BaseClient {
      * @type {UserManager}
      */
     this.users = new UserManager(this);
+
+    /**
+     * All of the {@link Relationship} objects that have been cached at any point, mapped by their ids
+     * @type {RelationshipManager}
+     */
+    this.relationships = new RelationshipManager(this);
 
     /**
      * All of the guilds the client is currently handling, mapped by their ids -

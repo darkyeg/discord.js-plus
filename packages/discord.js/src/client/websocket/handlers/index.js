@@ -39,6 +39,8 @@ const handlers = Object.fromEntries([
   ['MESSAGE_UPDATE', require('./MESSAGE_UPDATE')],
   ['PRESENCE_UPDATE', require('./PRESENCE_UPDATE')],
   ['READY', require('./READY')],
+  ['RELATIONSHIP_ADD', require('./RELATIONSHIP_ADD')],
+  ['RELATIONSHIP_REMOVE', require('./RELATIONSHIP_REMOVE')],
   ['RESUMED', require('./RESUMED')],
   ['STAGE_INSTANCE_CREATE', require('./STAGE_INSTANCE_CREATE')],
   ['STAGE_INSTANCE_DELETE', require('./STAGE_INSTANCE_DELETE')],

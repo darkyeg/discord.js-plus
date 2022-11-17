@@ -50,6 +50,9 @@
  * @property {string} MessageReactionRemoveEmoji messageReactionRemoveEmoji
  * @property {string} MessageUpdate messageUpdate
  * @property {string} PresenceUpdate presenceUpdate
+ * @property {string} RelationshipAdd relationshipAdd
+ * @property {string} RelationshipRemove relationshipRemove
+ * @property {string} RelationshipUpdate relationshipUpdate
  * @property {string} ShardDisconnect shardDisconnect
  * @property {string} ShardError shardError
  * @property {string} ShardReady shardReady
@@ -127,6 +130,9 @@ module.exports = {
   MessageUpdate: 'messageUpdate',
   PresenceUpdate: 'presenceUpdate',
   Raw: 'raw',
+  RelationshipAdd: 'relationshipAdd',
+  RelationshipRemove: 'relationshipRemove',
+  RelationshipUpdate: 'relationshipUpdate',
   ShardDisconnect: 'shardDisconnect',
   ShardError: 'shardError',
   ShardReady: 'shardReady',

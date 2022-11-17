@@ -778,6 +778,7 @@ export class Client<Ready extends boolean = boolean, Bot extends boolean = boole
   public get uptime(): If<Ready, number>;
   public user: If<Ready, ClientUser>;
   public users: UserManager;
+  public relationships: RelationshipManager;
   public voice: ClientVoiceManager;
   public ws: WebSocketManager;
   public destroy(): void;
@@ -2696,6 +2697,13 @@ export class User extends PartialTextBasedChannel(Base) {
   public system: boolean;
   public get tag(): string;
   public username: string;
+  public get relationship(): Relationship;
+  public get blocked(): boolean;
+  public get friend(): boolean;
+  public block(): Promise<User>;
+  public unblock(): Promise<User>;
+  public removeFriend(): Promise<User>;
+  public addFriend(): Promise<User>;
   public avatarURL(options?: ImageURLOptions): string | null;
   public bannerURL(options?: ImageURLOptions): string | null | undefined;
   public createDM(force?: boolean): Promise<DMChannel>;
@@ -2705,6 +2713,13 @@ export class User extends PartialTextBasedChannel(Base) {
   public fetch(force?: boolean): Promise<User>;
   public fetchFlags(force?: boolean): Promise<UserFlagsBitField>;
   public toString(): UserMention;
+}
+
+export class Relationship extends Base {
+  constructor(client: Client, data: object);
+  public user: User;
+  public id: string;
+  public type: number;
 }
 
 export class UserContextMenuCommandInteraction<
@@ -3749,6 +3764,14 @@ export class UserManager extends CachedManager<Snowflake, User, UserResolvable> 
   public send(user: UserResolvable, options: string | MessagePayload | MessageCreateOptions): Promise<Message>;
 }
 
+type RelationshipResolvable = Relationship | UserResolvable;
+
+export class RelationshipManager extends CachedManager<Snowflake, Relationship, RelationshipResolvable> {
+  constructor(client: Client, iterable?: Iterable<any>);
+  presences: PresenceManager;
+  public fetchAll(): Promise<Collection<Snowflake, Relationship>>;
+}
+
 export class VoiceStateManager extends CachedManager<Snowflake, VoiceState, typeof VoiceState> {
   private constructor(guild: Guild, iterable?: Iterable<RawVoiceStateData>);
   public guild: Guild;
@@ -4566,6 +4589,9 @@ export enum Events {
   ShardResume = 'shardResume',
   Invalidated = 'invalidated',
   Raw = 'raw',
+  RelationshipAdd = 'RelationshipAdd',
+  RelationshipRemove = 'RelationshipRemove',
+  RelationshipUpdate = 'RelationshipUpdate',
   StageInstanceCreate = 'stageInstanceCreate',
   StageInstanceUpdate = 'stageInstanceUpdate',
   StageInstanceDelete = 'stageInstanceDelete',

@@ -25,5 +25,23 @@ module.exports = (client, { d: data }, shard) => {
     }
   }
 
+  if (data.private_channels) {
+    for (const channel of data.private_channels) {
+      client.channels._add(channel);
+    }
+  }
+
+  if (data.relationships) {
+    for (const relationship of data.relationships) {
+      client.relationships._add(relationship);
+    }
+  }
+
+  if (data.presences) {
+    for (const presence of data.presences) {
+      client.relationships.presences._add(presence);
+    }
+  }
+
   shard.checkReady();
 };
